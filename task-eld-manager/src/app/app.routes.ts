@@ -4,14 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashComponent } from './dash/dash.component';
 import { AuthGuard } from './auth.guard';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { TaskComponent } from './task/task.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'dash', component: DashComponent, canActivate: [AuthGuard] }
+  { path: 'dash', component: DashComponent, canActivate: [AuthGuard] },
+  { path: 'task', component: TaskComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

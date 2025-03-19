@@ -6,7 +6,6 @@ import { enviroment } from '../../environments/environment.dev';
 
 @Injectable({
   providedIn: 'root',
-  
 })
 export class AuthService {
 
@@ -40,5 +39,9 @@ export class AuthService {
 
   isUserLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }
