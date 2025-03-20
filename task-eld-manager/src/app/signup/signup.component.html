@@ -1,0 +1,62 @@
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+  <div class="wrapper wrapper--w680">
+      <div class="card card-4">
+          <div class="card-body">
+              <h2 class="title">Registration Form</h2>
+              <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                  <div class="row row-space">
+                      <div class="col-2">
+                          <div class="input-group">
+                              <label class="label">First Name</label>
+                              <mat-form-field appearance="fill" class="input--style-4">
+                                  <input matInput formControlName="firstName" type="text" required>
+                                  <mat-error *ngIf="signupForm.get('firstName')?.hasError('required')">
+                                      First name is required
+                                  </mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="col-2">
+                          <div class="input-group">
+                              <label class="label">Last Name</label>
+                              <mat-form-field appearance="fill" class="input--style-4">
+                                  <input matInput formControlName="lastName" type="text" required>
+                                  <mat-error *ngIf="signupForm.get('lastName')?.hasError('required')">
+                                      Last name is required
+                                  </mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row row-space">
+                      <div class="col-2">
+                          <div class="input-group">
+                              <label class="label">Email</label>
+                              <mat-form-field appearance="fill" class="input--style-4">
+                                  <input matInput formControlName="email" type="email" required>
+                                  <mat-error *ngIf="signupForm.get('email')?.hasError('required')">
+                                      Email is required
+                                  </mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="input-group">
+                              <label class="label">Password</label>
+                              <mat-form-field appearance="fill" class="input--style-4">
+                                  <input matInput formControlName="password" type="password" required>
+                                  <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
+                                      Password is required
+                                  </mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="p-t-15">
+                      <button mat-raised-button color="primary" class="btn btn--radius-2 btn--blue" type="submit">
+                          Submit
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

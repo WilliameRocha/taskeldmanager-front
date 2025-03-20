@@ -1,0 +1,104 @@
+<!-- <div class="login-container">
+  <mat-card>
+    <mat-card-title>Bem-vindo</mat-card-title>
+    <mat-card-subtitle>Faça login para continuar</mat-card-subtitle>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required />
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            Email é obrigatório
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Email inválido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="password" type="password" required />
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Senha é obrigatória
+          </mat-error>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+            Entrar
+          </button>
+          <a mat-button routerLink="/signup">Criar conta</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+<div class="limiter">
+  <div class="container-login100">
+      <div class="wrap-login100">
+          <div class="login100-pic js-tilt" data-tilt>
+              <img src="assets/images/site-icon.png" alt="Login Image">
+          </div>
+
+          
+          <form [formGroup]="loginForm" class="login100-form validate-form" (ngSubmit)="onSubmit()">
+              <span class="login100-form-title">
+                  Login
+              </span>
+
+              <mat-form-field >
+
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                  <input matInput class="input100" placeholder="email" formControlName="email" type="email" required />
+                  
+
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+
+                    <!-- <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                      Email is required
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                      Inválid email
+                    </mat-error> -->
+
+                </div>
+
+            </mat-form-field>
+
+            <mat-form-field >
+
+              <div class="wrap-input100 validate-input" data-validate = "Password is required">
+
+                  <input matInput class="input100" name="pass" placeholder="Password" formControlName="password" type="password" required />
+
+                  <span class="focus-input100"></span>
+                  <span class="symbol-input100">
+                      <i class="fa fa-lock" aria-hidden="true"></i>
+                  </span>
+              </div>
+            </mat-form-field>
+
+              <div class="container-login100-form-btn">
+                  <button class="login100-form-btn" type="submit">
+                      Login
+                  </button>
+              </div>
+
+              <div class="text-center p-t-12">
+                 
+                  <div class="text-center p-t-136">
+                      <a class="txt2" href="/signup">
+                          Create your Account
+                          <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                      </a>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
