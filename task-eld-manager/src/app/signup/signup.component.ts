@@ -26,13 +26,16 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      password: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
   }
 
   passwordMatchValidator(form: FormGroup): null | { passwordMismatch: boolean } {
+    const firstName = form.get('firstName');
+    const lastName = form.get('lastName');
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
     return password && confirmPassword && password.value !== confirmPassword.value
@@ -46,6 +49,9 @@ export class SignupComponent implements OnInit {
       const password = this.signupForm.value.password;
       // Aqui você pode enviar os dados para o backend para criar o usuário
       console.log('Email:', email, 'Password:', password);
+    }
+    else{
+      alert('Please fill out the form correctly!');
     }
   }
 }
