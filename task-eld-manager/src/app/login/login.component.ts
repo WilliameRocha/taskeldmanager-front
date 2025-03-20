@@ -5,6 +5,7 @@ import { MatCard, MatCardContent, MatCardSubtitle, MatCardTitle } from '@angular
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -38,7 +39,16 @@ export class LoginComponent implements OnInit {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
 
+      
     if(this.authService.login(email, password)) {
+      this.userService.getUserByEmail(email).subscribe({
+        next: (user) => {
+          this.authService.setUser(user);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
       this.router.navigate(['/dash']);
     }
     else{

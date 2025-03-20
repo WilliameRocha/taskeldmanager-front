@@ -5,6 +5,8 @@ import { SignupComponent } from './signup/signup.component';
 import { DashComponent } from './dash/dash.component';
 import { AuthGuard } from './auth.guard';
 import { TaskComponent } from './task/task.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -16,7 +18,8 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatDialogModule
   ],
   exports: [RouterModule]
 })

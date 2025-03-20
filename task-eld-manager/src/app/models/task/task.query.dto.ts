@@ -3,6 +3,6 @@ export interface TaskQueryDTO{
     userId: number;
     title: string;
     status: string;
-    deadline: string;
-    createdAt: string;
+    deadline: Date;
+    createdAt: Date;
 }

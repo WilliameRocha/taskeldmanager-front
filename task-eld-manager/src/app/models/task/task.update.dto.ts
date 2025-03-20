@@ -1,8 +1,6 @@
-import { User } from "../user/user";
-
-export interface Task{
+export interface TaskUpdateDTO {
     id: number;
-    user: User;
+    userId: number;
     title: string;
     status: string;
     deadline: Date;

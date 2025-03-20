@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { enviroment } from '../../environments/environment.dev';
 import { HttpClient } from '@angular/common/http';
 import { UserCommandDTO } from '../models/user/user.command.dto';
 import { Observable } from 'rxjs';
 import { User } from '../models/user/user';
+import { environment } from '../../environments/environment.dev';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignupService {
 
-  private apiUrl = `${enviroment.apiUrl}/auth/register`;
+  private apiUrl = `${environment.apiUrl}/auth/register`;
 
   constructor(private httpClient: HttpClient) { }
 

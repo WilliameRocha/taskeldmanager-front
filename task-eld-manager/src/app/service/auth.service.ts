@@ -2,7 +2,8 @@ import { O } from '@angular/cdk/keycodes';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { enviroment } from '../../environments/environment.dev';
+import { environment } from '../../environments/environment.dev';
+import { UserQueryDTO } from '../models/user/user.query.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -10,17 +11,17 @@ import { enviroment } from '../../environments/environment.dev';
 export class AuthService {
 
   private isAuthenticaded = false;
+  private sessionKey = 'userData';
 
   constructor(private httpClient: HttpClient) { }
 
   login(email: string, password: string): boolean {
     
-    this.httpClient.post(`${enviroment.apiUrl}/auth/login`, { email, password }, {responseType: 'text'}).subscribe((response) =>{
+    this.httpClient.post(`${environment.apiUrl}/auth/login`, { email, password }, {responseType: 'text'}).subscribe((response) =>{
         localStorage.setItem('token', response);
         this.isAuthenticaded = true;
       }),
       catchError((error) => {
-        this.isAuthenticaded = false;
         let errorMessage = 'Unknown error';
         if (error.status === 0) {
           errorMessage = 'Server connection error';
@@ -34,7 +35,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
-    this.isAuthenticaded = false;
   }
 
   isUserLoggedIn(): boolean {
@@ -43,5 +43,14 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  setUser(user: UserQueryDTO): void {
+    sessionStorage.setItem(this.sessionKey, JSON.stringify(user));
+  }
+
+  getUser(): UserQueryDTO | null{
+    const user = sessionStorage.getItem(this.sessionKey);
+    return user ? JSON.parse(user) : null;
   }
 }
