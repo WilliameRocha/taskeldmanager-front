@@ -15,9 +15,6 @@ export class SignupService {
   constructor(private httpClient: HttpClient) { }
 
   register(user: UserCommandDTO): Observable<User> {
-    
-    // const headers = new HttpHeaders({ 'Content-Type': 'application/json',});
-
-    return this.httpClient.post<User>(this.apiUrl, user/*, {headers}*/);
+    return this.httpClient.post<User>(this.apiUrl, user);
   }
 }
