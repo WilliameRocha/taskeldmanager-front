@@ -1,8 +1,10 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { SignupService } from '../service/signup.service';
+import { UserCommandDTO } from '../models/user/user.command.dto';
 
 @Component({
   selector: 'app-signup',
@@ -20,38 +22,48 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
   ]
 })
 export class SignupComponent implements OnInit {
-  signupForm: FormGroup = new FormGroup({});
+  signupForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private signupService: SignupService) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
-  }
-
-  passwordMatchValidator(form: FormGroup): null | { passwordMismatch: boolean } {
-    const firstName = form.get('firstName');
-    const lastName = form.get('lastName');
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-    return password && confirmPassword && password.value !== confirmPassword.value
-      ? { passwordMismatch: true }
-      : null;
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    }, 
+    
+  );
   }
 
   onSubmit(): void {
     if (this.signupForm.valid) {
-      const email = this.signupForm.value.email;
-      const password = this.signupForm.value.password;
-      // Aqui você pode enviar os dados para o backend para criar o usuário
-      console.log('Email:', email, 'Password:', password);
+
+      const newUser: UserCommandDTO = {
+        firstName: this.signupForm.value.firstName,
+        lastName:this.signupForm.value.lastName,
+        email:this.signupForm.value.email,
+        password:this.signupForm.value.password
+      };
+      
+      this.signupService.register(newUser).subscribe({
+        next: (user) => {
+          alert('User registered successfully!');
+          this.signupForm.reset();
+        },
+        error: (error) => {
+          alert('An error occurred while registering the user!');
+        }
+      });
     }
     else{
       alert('Please fill out the form correctly!');
     }
   }
+}
+
+export function noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+  const value = control.value || '';
+  return value.trim().length === 0 ? { whitespace: true } : null;
 }

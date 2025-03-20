@@ -1,5 +1,4 @@
-export interface User{
-    id: number;
+export interface UserCommandDTO {
     firstName: string;
     lastName: string;
     email: string;

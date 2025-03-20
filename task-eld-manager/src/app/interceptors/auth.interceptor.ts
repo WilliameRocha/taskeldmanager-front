@@ -6,6 +6,9 @@ import { Observable } from "rxjs";
 
 
 export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
+    if(request.url.includes('auth/login') || request.url.includes('auth/register')) {
+      return next(request);
+    }
     const token = inject(AuthService).getToken();
     if (token) {
       request = request.clone({
